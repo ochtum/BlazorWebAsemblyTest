@@ -1,0 +1,60 @@
+﻿@page "/counter"
+@rendermode InteractiveAuto
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<p>
+	<button id="btn">Trigger .NET static method</button>
+</p>
+
+@code {
+	private int currentCount = 0;
+	// JS参照
+	private IJSObjectReference? module;
+
+	private void IncrementCount()
+	{
+		currentCount++;
+	}
+
+	// 対話レンダリング後イベント
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			// JSファイル読込
+			module = await JS.InvokeAsync<IJSObjectReference>("import",
+				"./Pages/Counter.razor.js");
+
+			// JSのAddHandlers呼出
+			await module.InvokeVoidAsync("addHandlers");
+		}
+	}
+
+	// JSからの呼出メソッド（JSInvokable属性があると許可される）
+	[JSInvokable]
+	public static Task<int[]> ReturnArrayAsync() =>
+		Task.FromResult(new int[] { 11, 12, 13, 14, 15 });
+
+	async ValueTask IAsyncDisposable.DisposeAsync()
+	{
+		if (module is not null)
+		{
+			try
+			{
+				await module.DisposeAsync();
+			}
+			catch (JSDisconnectedException)
+			{
+			}
+		}
+	}
+}
