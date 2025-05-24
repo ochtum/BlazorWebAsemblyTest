@@ -1,6 +1,6 @@
 <p align="left">
-  <a href="README.md"><img src="https://img.shields.io/badge/English-blue.svg" alt="English"></a>
-  <a href="README_jp.md"><img src="https://img.shields.io/badge/日本語-red.svg" alt="日本語"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/English Mode-blue.svg" alt="English"></a>
+  <a href="README_jp.md"><img src="https://img.shields.io/badge/日本語 モード-red.svg" alt="日本語"></a>
 </p>
 
 This source code is an experiment in calling WebAssembly from JavaScript.
