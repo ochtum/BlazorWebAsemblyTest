@@ -1,3 +1,8 @@
+<p align="left">
+  <a href="README_en.md"><img src="https://img.shields.io/badge/English-blue.svg" alt="English"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/日本語-red.svg" alt="日本語"></a>
+</p>
+
 本ソースは、WebAsemblyをJSから呼ぶ仕組みを試したものです。
 
 呼出順序は以下の通り。
